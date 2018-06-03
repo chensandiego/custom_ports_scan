@@ -3,12 +3,12 @@ from threading import Thread
 import time
 import socket
 
-from datetime import datetime
-import cPickle
+from datetime import *
+import pickle
 
 '''use existed port service'''
-pickle_file=open("port_description.dat",'r')
-data=skill=cPickle.load(pickle_file)
+pickle_file=open("port_description.dat",'rb')
+data=skill=pickle.load(pickle_file)
 
 
 
@@ -24,7 +24,7 @@ def scantcp(r1,r2,):
     except Exception as e:
         print(e)
 
-print "*"*60
+print ("*"*60)
 print (" \tWelcome, this is the port scanner\n")
 d=input("\tPress D for Domain Name or press I for ip address\t")
 
@@ -46,10 +46,10 @@ if port_last1>65535:
 conect=input("For low connectivity press L and High connectivity Press H\t")
 
 if (conect=='L' or conect=='l'):
-    c =1.5
+    c = 1.5
 
 elif(conect =='H' or conect=='h'):
-    c=0.5
+    c= 0.5
 
 else:
     print ("\twrong Input")
@@ -57,14 +57,16 @@ else:
 
 print ("\n Chen's port Scanner is working on ",rmip)
 print ("*"*60)
+
 t1= datetime.now()
+
 total_ports=port_last1-port_start1
 
 ports_by_one_thread =30
 
 
                    # tn number of port handled by one thread
-total_threads=total_ports/ports_by_one_thread # tnum number of threads
+total_threads=int(total_ports/ports_by_one_thread) # tnum number of threads
 if (total_ports%ports_by_one_thread!= 0):
     total_threads= total_threads+1
 
@@ -95,6 +97,6 @@ except Exception as e:
 for t in threads:
     t.join()
 print ("Exiting main thread")
-t2=datatime.now()
+t2=datetime.now()
 total=t2-t1
 print ("Scanning complete in ", total)
